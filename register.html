@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="home.css\reg.css">
+    <title>Register</title>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="title">Registration</div>  
+        <form action="home.html" >
+            <div class="user-details">
+                <div class="input-box">
+                    <label for="name">Name</label>
+                    <input type="text" id = "Fname_txt" placeholder="Enter your first name" required>
+                </div>
+                
+                <div class="input-box">
+                    <span class="details">Password</span>
+                    <input type="text" id = "Password_txt" placeholder="Enter your password" required>
+                </div>
+                <div class="input-box">
+                    <label for="phone">Phone</label>
+                    <input type="text" id = "Phone_txt" placeholder="Enter your number" required>
+                </div>
+            <div id="register_btn" class="button">
+
+                <input type="submit" value="Register">
+
+            </div>
+        </form>
+        <div class="button">
+            <input type="submit" onclick="location.href='login.html'" value="Back">
+        </div>
+    </div>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script  src="register.js"></script>
+</body>
+</html>
