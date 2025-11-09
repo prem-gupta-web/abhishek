@@ -4,39 +4,325 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="home.css\reg.css">
-    <title>Register</title>
-    
+    <title>Register - Beautiful Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .user-details {
+            margin-bottom: 30px;
+        }
+
+        .input-box {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-box label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            transition: color 0.3s;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 15px 20px;
+            padding-left: 50px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .input-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-box input:focus + .icon {
+            color: #667eea;
+        }
+
+        .input-box .icon {
+            position: absolute;
+            left: 18px;
+            top: 43px;
+            color: #999;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .input-box input::placeholder {
+            color: #aaa;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .button {
+            flex: 1;
+        }
+
+        .button input[type="submit"],
+        .button button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #register_btn input[type="submit"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        #register_btn input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        #register_btn input[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        .back-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea !important;
+        }
+
+        .back-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .login-link a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 40px 25px;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+
+        .password-strength {
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .password-strength.active {
+            display: block;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .strength-weak { width: 33%; background: #ff4757; }
+        .strength-medium { width: 66%; background: #ffa502; }
+        .strength-strong { width: 100%; background: #26de81; }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Registration</div>  
-        <form action="home.html" >
+        <div class="title">
+            <i class="fas fa-user-plus" style="margin-right: 10px;"></i>
+            Registration
+        </div>
+        
+        <form action="home.html" id="registrationForm">
             <div class="user-details">
                 <div class="input-box">
-                    <label for="name">Name</label>
-                    <input type="text" id = "Fname_txt" placeholder="Enter your first name" required>
+                    <label for="Fname_txt">Full Name</label>
+                    <i class="fas fa-user icon"></i>
+                    <input type="text" id="Fname_txt" name="name" placeholder="Enter your full name" required>
                 </div>
                 
                 <div class="input-box">
-                    <span class="details">Password</span>
-                    <input type="text" id = "Password_txt" placeholder="Enter your password" required>
+                    <label for="Password_txt">Password</label>
+                    <i class="fas fa-lock icon"></i>
+                    <input type="password" id="Password_txt" name="password" placeholder="Create a strong password" required minlength="6">
+                    <div class="password-strength">
+                        <div class="password-strength-bar"></div>
+                    </div>
                 </div>
+                
                 <div class="input-box">
-                    <label for="phone">Phone</label>
-                    <input type="text" id = "Phone_txt" placeholder="Enter your number" required>
+                    <label for="Phone_txt">Phone Number</label>
+                    <i class="fas fa-phone icon"></i>
+                    <input type="tel" id="Phone_txt" name="phone" placeholder="Enter your phone number" required pattern="[0-9]{10,}">
                 </div>
-            <div id="register_btn" class="button">
+            </div>
 
-                <input type="submit" value="Register">
-
+            <div class="button-group">
+                <div id="register_btn" class="button">
+                    <input type="submit" value="Register">
+                </div>
+                <div class="button">
+                    <button type="button" class="back-btn" onclick="location.href='login.html'">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                </div>
             </div>
         </form>
-        <div class="button">
-            <input type="submit" onclick="location.href='login.html'" value="Back">
+
+        <div class="login-link">
+            Already have an account? <a href="login.html">Login here</a>
         </div>
     </div>
+
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    <script  src="register.js"></script>
+    <script>
+        // Password strength indicator
+        const passwordInput = document.getElementById('Password_txt');
+        const strengthBar = document.querySelector('.password-strength-bar');
+        const strengthContainer = document.querySelector('.password-strength');
+
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            const strength = calculatePasswordStrength(password);
+            
+            if (password.length > 0) {
+                strengthContainer.classList.add('active');
+                strengthBar.className = 'password-strength-bar';
+                
+                if (strength < 40) {
+                    strengthBar.classList.add('strength-weak');
+                } else if (strength < 70) {
+                    strengthBar.classList.add('strength-medium');
+                } else {
+                    strengthBar.classList.add('strength-strong');
+                }
+            } else {
+                strengthContainer.classList.remove('active');
+            }
+        });
+
+        function calculatePasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength += 25;
+            if (password.length >= 12) strength += 25;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 25;
+            if (/\d/.test(password)) strength += 15;
+            if (/[^a-zA-Z0-9]/.test(password)) strength += 10;
+            return strength;
+        }
+
+        // Form validation
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            const phone = document.getElementById('Phone_txt').value;
+            if (phone.length < 10) {
+                e.preventDefault();
+                alert('Please enter a valid phone number (at least 10 digits)');
+            }
+        });
+
+      
+    </script>
 </body>
 </html>

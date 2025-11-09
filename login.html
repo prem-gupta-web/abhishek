@@ -4,31 +4,422 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="home.css\login.css">
-    <title>Login</title>
+    <title>Login - Welcome Back</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .center {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 420px;
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        h1::before {
+            content: '\f007';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            display: block;
+            font-size: 50px;
+            margin-bottom: 15px;
+            color: #764ba2;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .welcome-text {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 35px;
+            margin-top: 20px;
+        }
+
+        form {
+            margin-top: 40px;
+        }
+
+        .txt_field {
+            position: relative;
+            margin-bottom: 35px;
+        }
+
+        .txt_field input {
+            width: 100%;
+            padding: 15px 20px;
+            padding-left: 50px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .txt_field input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .txt_field label {
+            position: absolute;
+            top: 50%;
+            left: 50px;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 16px;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .txt_field input:focus ~ label,
+        .txt_field input:valid ~ label {
+            top: -12px;
+            left: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #667eea;
+            background: white;
+            padding: 0 8px;
+        }
+
+        .txt_field span {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .txt_field span::before {
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+        }
+
+        .txt_field:nth-child(1) span::before {
+            content: '\f007'; /* user icon */
+        }
+
+        .txt_field:nth-child(2) span::before {
+            content: '\f023'; /* lock icon */
+        }
+
+        .txt_field input:focus ~ span {
+            color: #667eea;
+        }
+
+        .pass {
+            text-align: right;
+            margin: -20px 0 25px 0;
+        }
+
+        #forget_btn {
+            color: #667eea;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        #forget_btn:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        #login_btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            margin-top: 10px;
+        }
+
+        #login_btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        #login_btn:active {
+            transform: translateY(0);
+        }
+
+        .signup_link {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .signup_link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .signup_link a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .divider::before {
+            margin-right: 15px;
+        }
+
+        .divider::after {
+            margin-left: 15px;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .social-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-btn.google { color: #DB4437; }
+        .social-btn.facebook { color: #4267B2; }
+        .social-btn.twitter { color: #1DA1F2; }
+
+        @media (max-width: 480px) {
+            .center {
+                padding: 40px 25px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+        }
+
+        /* Loading state */
+        .loading {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 3px solid #fff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
-    <div class = "center">
+    <div class="center">
         <h1>Login</h1>
-        <form action="home.html">
+        <p class="welcome-text">Welcome back! Please login to your account</p>
+        
+        <form action="home.html" id="loginForm">
             <div class="txt_field">
-                <input id = 'UsernameLogin_txt' type="text" required>
+                <input id="UsernameLogin_txt" type="text" required>
                 <span></span>
                 <label>Username</label>
             </div>
+            
             <div class="txt_field">
-                <input id = 'PasswordLogin_txt' type="password" required>
+                <input id="PasswordLogin_txt" type="password" required>
                 <span></span>
                 <label>Password</label>
             </div>
-            <div id="forget_btn" class="pass">Forgot password?</div>
-            <input id="login_btn" type="submit" value="Login"> 
+            
+            <div class="pass">
+                <span id="forget_btn">Forgot password?</span>
+            </div>
+            
+            <input id="login_btn" type="submit" value="Login">
+            
             <div class="signup_link">
-                Don't have an account? <a href="register.html">Signup</a>
+                Don't have an account? <a href="register.html">Sign up</a>
             </div>
         </form>
+
+        <div class="divider">OR</div>
+
+        <div class="social-login">
+            <button class="social-btn google" title="Login with Google">
+                <i class="fab fa-google"></i>
+            </button>
+            <button class="social-btn facebook" title="Login with Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </button>
+            <button class="social-btn twitter" title="Login with Twitter">
+                <i class="fab fa-twitter"></i>
+            </button>
+        </div>
     </div>
+
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    <script  src="login.js"></script>
+    <script>
+        // Toggle password visibility
+        const passwordInput = document.getElementById('PasswordLogin_txt');
+        
+        // Add show/hide password toggle
+        passwordInput.parentElement.style.position = 'relative';
+        const toggleBtn = document.createElement('i');
+        toggleBtn.className = 'fas fa-eye';
+        toggleBtn.style.cssText = 'position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #999; transition: color 0.3s;';
+        passwordInput.parentElement.appendChild(toggleBtn);
+
+        toggleBtn.addEventListener('click', function() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                this.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                this.className = 'fas fa-eye';
+            }
+        });
+
+        toggleBtn.addEventListener('mouseenter', function() {
+            this.style.color = '#667eea';
+        });
+
+        toggleBtn.addEventListener('mouseleave', function() {
+            this.style.color = '#999';
+        });
+
+        // Form submission with loading state
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const loginBtn = document.getElementById('login_btn');
+            loginBtn.classList.add('loading');
+            loginBtn.value = 'Logging in...';
+            
+            // Remove loading state after submission (if not redirected)
+            setTimeout(() => {
+                loginBtn.classList.remove('loading');
+                loginBtn.value = 'Login';
+            }, 2000);
+        });
+
+        // Forgot password handler
+        document.getElementById('forget_btn').addEventListener('click', function() {
+            // Add your forgot password logic here
+            alert('Password reset functionality - Connect this to your backend!');
+        });
+
+        // Social login handlers
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const platform = this.classList.contains('google') ? 'Google' : 
+                               this.classList.contains('facebook') ? 'Facebook' : 'Twitter';
+                console.log(`Login with ${platform} clicked`);
+                // Add your social login logic here
+            });
+        });
+
+        // You can add your Supabase login logic here
+        // Example:
+        // const supabaseUrl = 'YOUR_SUPABASE_URL'
+        // const supabaseKey = 'YOUR_SUPABASE_KEY'
+        // const supabase = supabase.createClient(supabaseUrl, supabaseKey)
+    </script>
 </body>
 </html>
